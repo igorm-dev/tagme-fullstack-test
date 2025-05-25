@@ -1,4 +1,35 @@
-import { Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument } from 'mongoose';
 
-@Schema()
-export class DishSchema {}
+@Schema({ collection: 'dishes', timestamps: true })
+export class DishSchema {
+	static readonly UUID_PREFIX = 'dish';
+
+	@Prop({ name: 'uuid', unique: true, isRequired: true })
+	uuid: string;
+
+	@Prop({ name: 'title', isRequired: true })
+	title: string;
+
+	@Prop({ name: 'description', isRequired: true })
+	description: string;
+
+	@Prop({ name: 'image_url', isRequired: true })
+	imageUrl: string;
+
+	@Prop({ name: 'price', isRequired: true })
+	price: number;
+
+	@Prop({ name: 'tags', type: [String], isRequired: true })
+	tags: string[];
+
+	@Prop()
+	createdAt: Date;
+
+	@Prop()
+	updatedAt: Date;
+}
+
+export type DishSchemaDocument = HydratedDocument<DishSchema>;
+
+export const DishSchemaFactory = SchemaFactory.createForClass(DishSchema);
