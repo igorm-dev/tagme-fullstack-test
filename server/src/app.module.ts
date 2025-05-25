@@ -3,6 +3,7 @@ import { EnvConfigModule } from './env-config/env-config.module';
 import { InMemoryMongoDBModule } from './database/in-memory-mongodb.module';
 import { DishModule } from './dish/dish.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { SharpModule } from './sharp/sharp.module';
 
 @Module({
 	imports: [
@@ -10,6 +11,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
 		InMemoryMongoDBModule.forRootAsync(),
 		DishModule,
 		CloudinaryModule,
+		SharpModule,
 	],
 	controllers: [],
 	providers: [],

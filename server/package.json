@@ -29,6 +29,7 @@
 		"mongoose": "^8.15.0",
 		"reflect-metadata": "^0.2.2",
 		"rxjs": "^7.8.1",
+		"sharp": "^0.34.2",
 		"uuid": "^11.1.0"
 	},
 	"devDependencies": {

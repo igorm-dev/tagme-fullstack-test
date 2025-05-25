@@ -28,20 +28,17 @@ export class CloudinaryService implements OnModuleInit {
 	}
 
 	async uploadImage(
-		file: Express.Multer.File,
+		buffer: Buffer<ArrayBufferLike>,
 		folder: string,
 	): Promise<UploadApiResponse> {
-		if (!file || !file.buffer) {
+		if (!buffer) {
 			throw new BadRequestException('File buffer is missing');
 		}
 
 		try {
 			const TIMEOUT = 5_000;
 
-			const uploadPromise = this.createUploadPromise(
-				file.buffer as Buffer<ArrayBufferLike>,
-				folder,
-			);
+			const uploadPromise = this.createUploadPromise(buffer, folder);
 
 			const timeoutPromise = new Promise<never>((_, reject) =>
 				setTimeout(
