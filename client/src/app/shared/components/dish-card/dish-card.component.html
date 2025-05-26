@@ -1,0 +1,16 @@
+<mat-card class="card">
+  <img mat-card-image src="{{dish.imageUrl}}" alt="{{dish.title}} image">
+  <div class="container">
+    <div class="left-content">
+      <h2>{{dish.title}}</h2>
+      <p class="category">{{dish.category}}</p>
+      <p class="description">{{dish.description}}</p>
+    </div>
+    <div class="right-content">
+      <p class="price">{{formattedPrice(dish.price)}}</p>
+      <a class="details-link" [routerLink]="['/dish', dish.uuid]">
+        <span>Ver detalhes</span>
+      </a>
+    </div>
+  </div>
+</mat-card>

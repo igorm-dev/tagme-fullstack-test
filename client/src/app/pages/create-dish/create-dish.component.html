@@ -1,6 +1,8 @@
 <div class="create-dish-container">
   <header>
-    <mat-icon>arrow_back</mat-icon>
+    <a routerLink="/" class="back-button">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
     <h1>Novo Prato</h1>
     <span></span>
   </header>
@@ -97,7 +99,7 @@
                 <mat-option value="MAIN_COURSES">Principais</mat-option>
                 <mat-option value="STARTERS">Entradas</mat-option>
                 <mat-option value="DESSERTS">Sobremesas</mat-option>
-                <mat-option value="'DRINKS">Bebidas</mat-option>
+                <mat-option value="DRINKS">Bebidas</mat-option>
               </mat-select>
               @if (form.get('category')?.invalid && form.get('category')?.touched) {
                 <mat-error>A categoria é obrigatória</mat-error>

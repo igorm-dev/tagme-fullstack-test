@@ -1,0 +1,77 @@
+.card {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+
+  box-sizing: border-box;
+
+  padding-right: 1rem;
+
+  img {
+    width: 14%;
+    max-width: 200px;
+    height: auto;
+    object-fit: fill;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .left-content {
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+
+      .category {
+        display: inline-block;
+        background-color: rgba(201, 199, 199, 0.679);
+        padding: .2rem .4rem;
+        border-radius: 8px;
+        font-size: .8rem;
+        text-align: center;
+      }
+
+      .description {
+        color: #5c5c5c;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 600px;
+        /* Necessario alterar o max-width para mobile... */
+      }
+    }
+
+    .right-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+
+      .price {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: #333;
+      }
+
+      .details-link {
+        text-decoration: none;
+        color: #ff5900cd;
+        font-size: 1rem;
+        font-weight: 500;
+
+        &:hover {
+          text-decoration: underline;
+        }
+        &:active {
+          color: #ff5900a4;
+        }
+      }
+    }
+  }
+}

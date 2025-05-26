@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { ImageCropperDialogComponent } from '../../shared/components/image-cropper-dialog/image-cropper-dialog.component';
 import { CreateDishForm } from './create-dish.interface';
@@ -22,7 +22,7 @@ import { DishService } from '../../core/services/dish.service';
   templateUrl: './create-dish.component.html',
   styleUrls: ['./create-dish.component.css'],
   standalone: true,
-  imports: [MatFormFieldModule, MatButtonModule, MatInputModule, MatIconModule, ReactiveFormsModule, MatSlideToggleModule, MatSelectModule],
+  imports: [MatFormFieldModule, MatButtonModule, MatInputModule, MatIconModule, ReactiveFormsModule, MatSlideToggleModule, MatSelectModule, RouterModule],
 })
 export class CreateDishComponent {
   form: FormGroup;
@@ -52,6 +52,8 @@ export class CreateDishComponent {
   async onSubmit() {
     if (this.form.valid) {
       const { title, description, category, price, isAvailable, image } = this.form.value;
+
+      console.log(this.form.value);
 
       this.isSubmitting = true;
       this.form.disable();

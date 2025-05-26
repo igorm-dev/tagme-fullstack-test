@@ -1,0 +1,26 @@
+<div class="home">
+  <header>
+    <div>
+      <h1>TAGME Menu</h1>
+      <p>Gerencie seu cardápio</p>
+    </div>
+    <a routerLink="/create" class="create-dish-route">
+      <mat-icon>add</mat-icon>
+    </a>
+  </header>
+  <div class="paginator-container">
+    <ul class="dish-list">
+      @for (dish of dishes; track dish.uuid) {
+        <li><app-dish-card [dish]="dish" /></li> 
+      }
+    </ul>
+    <mat-paginator
+      class="paginator-component"
+      [length]="totalItems"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 20]"
+      (page)="onPageChange($event)"
+    >
+    </mat-paginator>
+  </div>
+</div>
