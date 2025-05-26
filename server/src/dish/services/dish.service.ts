@@ -6,6 +6,11 @@ import { CreateDishDto } from '../dtos/create-dish.dto';
 import { DishRepository } from '../repositories/dish.repository';
 import { UpdateDishDto } from '../dtos/update-dish.dto';
 import { DishSchema } from '../schemas/dish.schema';
+import {
+	FindDishPaginatedDto,
+	FindDishPaginatedResponse,
+} from '../dtos/find-dish-paginated.dto';
+import { DishDto } from '../dtos/dish.dto';
 
 @Injectable()
 export class DishService {
@@ -14,6 +19,46 @@ export class DishService {
 		private readonly sharpService: SharpService,
 		private readonly cloudinaryService: CloudinaryService,
 	) {}
+
+	async findByUUID(uuid: string) {
+		const foundedDish = await this.repo.findByUuid(uuid);
+
+		if (!foundedDish) {
+			throw new BadRequestException(`Dish with uuid ${uuid} not found`);
+		}
+
+		return foundedDish;
+	}
+
+	async findByPagination(
+		data: FindDishPaginatedDto,
+	): Promise<FindDishPaginatedResponse> {
+		const { dishes, total } = await this.repo.findPaginated(
+			data.page,
+			data.limit,
+		);
+
+		const mapped = dishes.map(
+			(dish) =>
+				new DishDto({
+					uuid: dish.uuid,
+					title: dish.title,
+					description: dish.description,
+					category: dish.category,
+					price: dish.price,
+					imageUrl: dish.imageUrl,
+					createdAt: dish.createdAt,
+					updatedAt: dish.updatedAt,
+				}),
+		);
+
+		return {
+			data: mapped,
+			total,
+			limit: data.limit,
+			page: data.page,
+		};
+	}
 
 	async create(data: CreateDishDto, file: Express.Multer.File): Promise<void> {
 		const resizedImage = await this.sharpService.resizeImageToSquare(file);

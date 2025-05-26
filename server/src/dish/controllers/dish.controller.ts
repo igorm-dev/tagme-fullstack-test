@@ -1,6 +1,7 @@
 import {
 	Body,
 	Controller,
+	Get,
 	Param,
 	Post,
 	Put,
@@ -11,6 +12,10 @@ import { DishService } from '../services/dish.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateDishDto } from '../dtos/create-dish.dto';
 import { UpdateDishDto } from '../dtos/update-dish.dto';
+import {
+	FindDishPaginatedDto,
+	FindDishPaginatedResponse,
+} from '../dtos/find-dish-paginated.dto';
 
 @Controller('dish')
 export class DishController {
@@ -33,5 +38,17 @@ export class DishController {
 		@UploadedFile() file: Express.Multer.File,
 	) {
 		await this.service.update(uuid, data, file);
+	}
+
+	@Get(':uuid')
+	async findByUUID(@Param('uuid') uuid: string) {
+		return await this.service.findByUUID(uuid);
+	}
+
+	@Get()
+	async findByPagination(
+		@Body() data: FindDishPaginatedDto,
+	): Promise<FindDishPaginatedResponse> {
+		return await this.service.findByPagination(data);
 	}
 }

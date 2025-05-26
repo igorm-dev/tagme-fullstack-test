@@ -58,16 +58,16 @@ export class DishRepository {
 	async findPaginated(
 		page: number,
 		limit: number,
-	): Promise<{ data: DishSchemaDocument[]; total: number }> {
+	): Promise<{ dishes: DishSchemaDocument[]; total: number }> {
 		try {
 			const offset = ((page || 1) - 1) * limit;
 
-			const [data, total] = await Promise.all([
+			const [dishes, total] = await Promise.all([
 				this.model.find().skip(offset).limit(limit).exec(),
 				this.model.countDocuments(),
 			]);
 
-			return { data, total };
+			return { dishes, total };
 		} catch (err) {
 			this.logger.error(
 				`Error finding paginated dishes: ${err}`,
