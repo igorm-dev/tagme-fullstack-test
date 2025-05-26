@@ -74,6 +74,7 @@ export class DishService {
 			price: data.price,
 			title: data.title,
 			imageUrl: secure_url,
+			isAvailable: data.isAvailable,
 		});
 	}
 
