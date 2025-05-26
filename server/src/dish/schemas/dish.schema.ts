@@ -24,6 +24,9 @@ export class DishSchema {
 	@Prop({ name: 'category', isRequired: true })
 	category: DishCategory;
 
+	@Prop({ name: 'is_available', isRequired: true })
+	isAvailable: boolean;
+
 	@Prop()
 	createdAt: Date;
 
