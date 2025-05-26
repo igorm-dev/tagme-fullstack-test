@@ -1,4 +1,4 @@
-import { IsEnum, IsString } from 'class-validator';
+import { IsEnum, IsNumber, IsString } from 'class-validator';
 import { DishCategory } from '../enums/category.enum';
 
 export class CreateDishDto {
@@ -11,6 +11,6 @@ export class CreateDishDto {
 	@IsEnum(DishCategory)
 	category: DishCategory;
 
-	@IsString()
+	@IsNumber()
 	price: number;
 }

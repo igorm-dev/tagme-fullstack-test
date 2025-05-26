@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CloudinaryFolder } from 'src/cloudinary/cloudinary.enum';
 import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 import { SharpService } from 'src/sharp/sharp.service';
 import { CreateDishDto } from '../dtos/create-dish.dto';
 import { DishRepository } from '../repositories/dish.repository';
+import { UpdateDishDto } from '../dtos/update-dish.dto';
+import { DishSchema } from '../schemas/dish.schema';
 
 @Injectable()
 export class DishService {
@@ -28,5 +30,35 @@ export class DishService {
 			title: data.title,
 			imageUrl: secure_url,
 		});
+	}
+
+	async update(
+		uuid: string,
+		data: UpdateDishDto,
+		file?: Express.Multer.File,
+	): Promise<void> {
+		const foundedDish = await this.repo.findByUuid(uuid);
+
+		if (!foundedDish) {
+			throw new BadRequestException(`Dish with uuid ${uuid} not found`);
+		}
+
+		const dish: Omit<DishSchema, 'uuid' | 'createdAt' | 'updatedAt'> = {
+			...data,
+			imageUrl: foundedDish.imageUrl,
+		};
+
+		if (file && file.buffer) {
+			// TODO: Delete old image from Cloudinary (not implemented yet)
+			const resizedImage = await this.sharpService.resizeImageToSquare(file);
+			const { secure_url } = await this.cloudinaryService.uploadImage(
+				resizedImage.buffer,
+				CloudinaryFolder.DISHES,
+			);
+
+			dish.imageUrl = secure_url;
+		}
+
+		await this.repo.update(uuid, dish);
 	}
 }
