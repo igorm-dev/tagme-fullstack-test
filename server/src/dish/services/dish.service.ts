@@ -90,7 +90,11 @@ export class DishService {
 		}
 
 		const dish: Omit<DishSchema, 'uuid' | 'createdAt' | 'updatedAt'> = {
-			...data,
+			category: data.category,
+			description: data.description,
+			price: data.price,
+			title: data.title,
+			isAvailable: data.isAvailable,
 			imageUrl: foundedDish.imageUrl,
 		};
 
