@@ -9,6 +9,7 @@ import { DishService } from '../../../core/services/dish.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoadingService } from '../../../core/services/loading.service';
 
 @Component({
   selector: 'app-dish-card',
@@ -22,6 +23,7 @@ export class DishCardComponent {
   @Output() dishDeletedEvent = new EventEmitter<void>();
 
   constructor(
+    private readonly loadingService: LoadingService,
     private readonly dishService: DishService,
     private readonly dialog: MatDialog,
     private snackBar: MatSnackBar,
@@ -61,6 +63,7 @@ export class DishCardComponent {
       },
     }).afterClosed().subscribe((result) => {
       if (result) {
+        this.loadingService.show();
         this.dishService.delete(uuid).subscribe({
           next: () => {
             this.showSuccess();
@@ -68,6 +71,9 @@ export class DishCardComponent {
           },
           error: (error) => {
             this.showError();
+          },
+          complete: () => {
+            this.loadingService.hide();
           }
         });
       }

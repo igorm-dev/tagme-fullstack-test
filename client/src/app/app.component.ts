@@ -1,10 +1,20 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { LoadingService } from './core/services/loading.service';
+import { LoadingComponent } from './shared/components/loading/loading.component';
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, LoadingComponent],
   standalone: true,
   selector: 'app-root',
-  template: '<router-outlet></router-outlet>',
+  templateUrl: './app.component.html',
 })
-export class AppComponent {}
+export class AppComponent {
+  isLoading = false;
+
+  constructor(private loadingService: LoadingService) {
+    this.loadingService.loading$.subscribe((value) => {
+      this.isLoading = value;
+    });
+  }
+}

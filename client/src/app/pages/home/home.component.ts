@@ -6,6 +6,7 @@ import { DishService } from '../../core/services/dish.service';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { DishCardComponent } from '../../shared/components/dish-card/dish-card.component';
+import { LoadingService } from '../../core/services/loading.service';
 
 @Component({
   standalone: true,
@@ -23,13 +24,17 @@ export class HomeComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private readonly dishService: DishService) {}
+  constructor(
+    private readonly loadingService: LoadingService,
+    private readonly dishService: DishService
+  ) {}
 
   ngOnInit() {
     this.fetchDishes();
   }
 
   fetchDishes() {
+    this.loadingService.show();
     const page = this.currentPage + 1;
 
     this.dishService.getByPagination(page, this.pageSize).subscribe({
@@ -41,6 +46,9 @@ export class HomeComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching dishes:', err);
+      },
+      complete: () => {
+        this.loadingService.hide();
       }
     })
   }

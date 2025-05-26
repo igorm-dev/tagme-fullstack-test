@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Dish } from '../models/dish.model';
 import { CreateDishForm } from '../../pages/create-dish/create-dish.interface';
+import { EditDishForm } from '../../pages/edit-dish/edit-dish.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -29,21 +30,30 @@ export class DishService {
     return this.http.get<Dish>(`${this.baseUrl}/${uuid}`);
   }
 
-  create(book: CreateDishForm): Observable<void> {
+  create(dish: CreateDishForm): Observable<void> {
     const formData = new FormData();
 
-    formData.append('title', book.title);
-    formData.append('description', book.description);
-    formData.append('category', book.category);
-    formData.append('price', book.price.toString());
-    formData.append('isAvailable', book.isAvailable.toString());
-    formData.append('image', book.image as Blob);
+    formData.append('title', dish.title);
+    formData.append('description', dish.description);
+    formData.append('category', dish.category);
+    formData.append('price', dish.price.toString());
+    formData.append('isAvailable', dish.isAvailable.toString());
+    formData.append('image', dish.image as Blob);
 
     return this.http.post<void>(this.baseUrl, formData);
   }
 
-  update(dish: Dish): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}/${dish.uuid}`, dish);
+  update(uuid: string, dish: EditDishForm): Observable<void> {
+    const formData = new FormData();
+
+    formData.append('title', dish.title);
+    formData.append('description', dish.description);
+    formData.append('category', dish.category);
+    formData.append('price', dish.price.toString());
+    formData.append('isAvailable', dish.isAvailable.toString());
+    formData.append('image', dish.image as Blob);
+
+    return this.http.put<void>(`${this.baseUrl}/${uuid}`, formData);
   }
 
   delete(uuid: string): Observable<void> {
