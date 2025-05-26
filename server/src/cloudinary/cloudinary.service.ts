@@ -28,7 +28,7 @@ export class CloudinaryService implements OnModuleInit {
 	}
 
 	async uploadImage(
-		buffer: Buffer<ArrayBufferLike>,
+		buffer: Buffer,
 		folder: string,
 	): Promise<UploadApiResponse> {
 		if (!buffer) {
@@ -59,10 +59,7 @@ export class CloudinaryService implements OnModuleInit {
 		}
 	}
 
-	private async createUploadPromise(
-		buffer: Buffer<ArrayBufferLike>,
-		folder: string,
-	) {
+	private async createUploadPromise(buffer: Buffer, folder: string) {
 		return new Promise<UploadApiResponse>((resolve, reject) => {
 			const stream = cloudinary.uploader.upload_stream(
 				{ folder },

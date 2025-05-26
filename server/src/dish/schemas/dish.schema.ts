@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import { DishCategory } from '../enums/category.enum';
 
 @Schema({ collection: 'dishes', timestamps: true })
 export class DishSchema {
@@ -20,8 +21,8 @@ export class DishSchema {
 	@Prop({ name: 'price', isRequired: true })
 	price: number;
 
-	@Prop({ name: 'tags', type: [String], isRequired: true })
-	tags: string[];
+	@Prop({ name: 'category', isRequired: true })
+	category: DishCategory;
 
 	@Prop()
 	createdAt: Date;

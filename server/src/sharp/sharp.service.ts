@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import * as sharp from 'sharp';
 
 @Injectable()
 export class SharpService {
-	constructor() {}
+	private readonly logger = new Logger(SharpService.name);
 
 	async resizeImageToSquare(
 		file: Express.Multer.File,
@@ -39,12 +37,13 @@ export class SharpService {
 				size: buffer.length,
 				buffer,
 			};
-		} catch (err: unknown) {
-			if (err instanceof Error) {
-				console.error('Error resizing image:', err.message);
-			} else {
-				console.error('Error resizing image:', err);
-			}
+		} catch (err) {
+			this.logger.error(
+				`Error resizing file: ${err}`,
+				err.stack,
+				this.resizeImageToSquare.name,
+			);
+
 			throw new Error('Error processing image');
 		}
 	}
