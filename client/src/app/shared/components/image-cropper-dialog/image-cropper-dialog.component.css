@@ -1,0 +1,12 @@
+.img-cropper-dialog {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    gap: .4rem;
+  }
+}

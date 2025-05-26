@@ -1,0 +1,19 @@
+<div class="img-cropper-dialog">
+  <h1 mat-dialog-title>Recortar Imagem</h1>
+  <div mat-dialog-content>
+    <image-cropper
+      [imageChangedEvent]="data.imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="1 / 1"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+    >
+    </image-cropper>
+  </div>
+  <div class="actions" mat-dialog-actions>
+    <button mat-stroked-button mat-dialog-close (click)="cancelCrop()">
+      Cancelar
+    </button>
+    <button mat-flat-button (click)="confirmCrop()">Confirmar</button>
+  </div>
+</div>

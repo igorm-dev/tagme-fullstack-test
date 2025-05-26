@@ -1,0 +1,92 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+@use '@angular/material/core/theming/palette' as palette;
+@use '@angular/material/core/theming/theming' as theming;
+
+$custom-primary: palette.define-palette((
+  50: #fff3e6,
+  100: #ffe0cc,
+  200: #ffccad,
+  300: #ffb38a,
+  400: #ff8f5c,
+  500: #ff5a00,
+  600: #e65000,
+  700: #cc4700,
+  800: #b33d00,
+  900: #802b00,
+  contrast: (
+    50: black,
+    100: black,
+    200: black,
+    300: black,
+    400: black,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  ),
+));
+
+$custom-secondary: palette.define-palette((
+  50: #f9f9f9,
+  100: #f1f1f1,
+  200: #e2e2e2,
+  300: #c6c6c7,
+  400: #aaabab,
+  500: #909191,
+  600: #767777,
+  700: #5d5f5f,
+  800: #454747,
+  900: #2f3131,
+  contrast: (
+    50: black,
+    100: black,
+    200: black,
+    300: black,
+    400: black,
+    500: black,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  ),
+));
+
+$custom-tertiary: palette.define-palette((
+  50: #fbf9f8,
+  100: #f3f0f0,
+  200: #e4e2e1,
+  300: #c8c6c6,
+  400: #acabaa,
+  500: #929090,
+  600: #787777,
+  700: #5f5e5e,
+  800: #474747,
+  900: #303030,
+  contrast: (
+    50: black,
+    100: black,
+    200: black,
+    300: black,
+    400: black,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+  ),
+));
+
+// Define o tema com as paletas
+$custom-theme: theming.define-light-theme((
+  color: (
+    primary: $custom-primary,
+    secondary: $custom-secondary,
+    tertiary: $custom-tertiary,
+  )
+));
+
+// Aplicar o tema aos componentes
+@include theming.core();
+@include theming.all-component-themes($custom-theme);

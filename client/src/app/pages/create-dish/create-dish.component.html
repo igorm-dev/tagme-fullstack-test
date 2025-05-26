@@ -1,0 +1,125 @@
+<div class="create-dish-container">
+  <header>
+    <mat-icon>arrow_back</mat-icon>
+    <h1>Novo Prato</h1>
+    <span></span>
+  </header>
+  <div class="form-container">
+    <form class="form-content" [formGroup]="form" (ngSubmit)="onSubmit()" action="">
+      <div class="form-fields">
+        <h2>Informações do Prato</h2>
+        <div class="field-container">
+          <mat-label for="">Imagem</mat-label>
+          @if (croppedImageUrl) {
+            <div class="image-container">
+              <img
+                class="image"
+                [src]="croppedImageUrl"
+                alt="Preview da Imagem"
+              />
+              <button 
+                mat-icon-button 
+                class="remove-image-button" 
+                (click)="removeImage()"
+                [disabled]="isSubmitting"
+              >
+                Remover Imagem
+              </button>
+            </div>
+          }
+          @else {
+            <div class="image-selector" (click)="fileInput.click()">
+              <p>Selecione uma imagem</p>
+            </div>
+          }
+          <input 
+            type="file"
+            accept="image/*"
+            (change)="fileChangeEvent($event)"
+            style="display: none"
+            #fileInput
+            />
+            @if (form.get('image')?.invalid && form.get('image')?.touched) {
+              <mat-error> A imagem é obrigatória</mat-error>
+            }
+        </div>
+        <div class="field-container">
+          <mat-label for="">Nome</mat-label>
+          <mat-form-field appearance="fill" class="test">
+            <input
+              matInput
+              formControlName="title"
+              [disabled]="isSubmitting"
+              type="text"
+              placeholder="Ex: Hambúrguer Artesanal" 
+            />
+            @if (form.get('title')?.invalid && form.get('title')?.touched) {
+              <mat-error>O nome é obrigatório</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="field-container">
+          <mat-label for="">Descrição</mat-label>
+          <mat-form-field>
+            <textarea 
+              matInput
+              formControlName="description"
+              [disabled]="isSubmitting"
+              type="text"
+              placeholder="Descreva os ingredientes e características do prato..."
+            ></textarea>
+            @if (form.get('description')?.invalid && form.get('description')?.touched) {
+              <mat-error> A descrição é obrigatória</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div class="price-category-container">
+          <div class="field-container">
+            <mat-label for="">Preço</mat-label>
+            <mat-form-field>
+              <input 
+                matInput
+                formControlName="price"
+                [disabled]="isSubmitting"
+                type="number"
+                value="0" 
+              />
+              @if (form.get('price')?.invalid && form.get('price')?.touched) {
+                <mat-error>O preço é obrigatório</mat-error>
+              }
+            </mat-form-field>
+          </div>
+          <div class="field-container">
+            <mat-label for="">Categoria</mat-label>
+            <mat-form-field>
+              <mat-select [disabled]="isSubmitting" formControlName="category">
+                <mat-option value="" disabled selected>Selecione uma categoria</mat-option>
+                <mat-option value="MAIN_COURSES">Principais</mat-option>
+                <mat-option value="STARTERS">Entradas</mat-option>
+                <mat-option value="DESSERTS">Sobremesas</mat-option>
+                <mat-option value="'DRINKS">Bebidas</mat-option>
+              </mat-select>
+              @if (form.get('category')?.invalid && form.get('category')?.touched) {
+                <mat-error>A categoria é obrigatória</mat-error>
+              }
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="selector-container">
+          <div>
+            <mat-label for="">Disponível do Cardápio</mat-label>
+            <p>Clientes poderão ver e pedir este prato</p>
+          </div>
+          <mat-slide-toggle
+            formControlName="isAvailable"
+          >
+          </mat-slide-toggle>
+        </div>
+      </div>
+      <div class="form-buttons">
+        <button mat-button class="cancel-button">Cancelar</button>
+        <button mat-button class="save-button">Criar Prato</button>
+      </div>
+    </form>
+  </div>
+</div>
