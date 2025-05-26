@@ -21,7 +21,12 @@ export class DishSchema {
 	@Prop({ name: 'price', isRequired: true })
 	price: number;
 
-	@Prop({ name: 'category', isRequired: true })
+	@Prop({
+		name: 'category',
+		isRequired: true,
+		type: String,
+		enum: Object.values(DishCategory),
+	})
 	category: DishCategory;
 
 	@Prop({ name: 'is_available', isRequired: true })

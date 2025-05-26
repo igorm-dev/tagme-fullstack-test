@@ -1,5 +1,6 @@
 import { IsBoolean, IsEnum, IsNumber, IsString } from 'class-validator';
 import { DishCategory } from '../enums/category.enum';
+import { Type } from 'class-transformer';
 
 export class CreateDishDto {
 	@IsString()
@@ -11,9 +12,11 @@ export class CreateDishDto {
 	@IsEnum(DishCategory)
 	category: DishCategory;
 
+	@Type(() => Number)
 	@IsNumber()
 	price: number;
 
+	@Type(() => Boolean)
 	@IsBoolean()
 	isAvailable: boolean;
 }
