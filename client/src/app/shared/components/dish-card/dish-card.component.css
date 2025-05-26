@@ -59,17 +59,18 @@
         color: #333;
       }
 
-      .details-link {
-        text-decoration: none;
-        color: #ff5900cd;
-        font-size: 1rem;
-        font-weight: 500;
+      .actions {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
 
-        &:hover {
-          text-decoration: underline;
+        .icon-delete {
+          color: red;
+          cursor: pointer;
         }
-        &:active {
-          color: #ff5900a4;
+
+        .icon-edit {
+          color: #333;
         }
       }
     }

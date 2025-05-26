@@ -50,4 +50,9 @@ export class HomeComponent implements OnInit {
     this.currentPage = event.pageIndex;
     this.fetchDishes();
   }
+
+  refreshAll() {
+    this.currentPage = 0;
+    this.fetchDishes();
+  }
 }

@@ -3,14 +3,17 @@
   <div class="container">
     <div class="left-content">
       <h2>{{dish.title}}</h2>
-      <p class="category">{{dish.category}}</p>
+      <p class="category">{{mapCategory(dish.category)}}</p>
       <p class="description">{{dish.description}}</p>
     </div>
     <div class="right-content">
       <p class="price">{{formattedPrice(dish.price)}}</p>
-      <a class="details-link" [routerLink]="['/dish', dish.uuid]">
-        <span>Ver detalhes</span>
-      </a>
+      <div class="actions">
+        <mat-icon class="icon-delete" (click)="confirmDelete(dish.uuid)">delete</mat-icon>
+        <a class="icon-edit" [routerLink]="['/edit', dish.uuid]">
+          <mat-icon class="icon-edit">edit</mat-icon>
+        </a>
+      </div>
     </div>
   </div>
 </mat-card>

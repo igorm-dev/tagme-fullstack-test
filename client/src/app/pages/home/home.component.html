@@ -11,7 +11,7 @@
   <div class="paginator-container">
     <ul class="dish-list">
       @for (dish of dishes; track dish.uuid) {
-        <li><app-dish-card [dish]="dish" /></li> 
+        <li><app-dish-card (dishDeletedEvent)="refreshAll()" [dish]="dish" /></li> 
       }
     </ul>
     <mat-paginator
