@@ -106,4 +106,8 @@ export class DishService {
 
 		await this.repo.update(uuid, dish);
 	}
+
+	async delete(uuid: string): Promise<void> {
+		await this.repo.delete(uuid);
+	}
 }

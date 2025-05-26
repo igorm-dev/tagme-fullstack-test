@@ -1,6 +1,7 @@
 import {
 	Body,
 	Controller,
+	Delete,
 	Get,
 	Param,
 	Post,
@@ -50,5 +51,10 @@ export class DishController {
 		@Body() data: FindDishPaginatedDto,
 	): Promise<FindDishPaginatedResponse> {
 		return await this.service.findByPagination(data);
+	}
+
+	@Delete(':uuid')
+	async delete(@Param('uuid') uuid: string) {
+		return await this.service.delete(uuid);
 	}
 }
